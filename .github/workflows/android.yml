@@ -16,6 +16,12 @@ jobs:
         with:
           node-version: 20
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
       - name: Install dependencies
         run: npm install
 
@@ -23,7 +29,9 @@ jobs:
         run: npm run build
 
       - name: Add Android platform
-        run: npm install @capacitor/android && npx cap add android
+        run: |
+          npm install @capacitor/android
+          npx cap add android
 
       - name: Sync Capacitor
         run: npx cap sync android
